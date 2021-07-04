@@ -1,6 +1,6 @@
 # Some Useful Javascript Utility Functions that I Found Useful.
 
-*`Array.arfFilter(comparer)`* returns the 'indices' of elements for which @comparer returns true. (@comparer: a comparison Function that takes each array element)
+`Array.arfFilter(comparer)` returns the 'indices' of elements for which @comparer returns true. (@comparer: a comparison Function that takes each array element)
 
 Usage:
 ```{javascript}
@@ -8,8 +8,9 @@ Usage:
 ```
 returns `[1, 3]` (indices for 2 and 4, respectively).
 
+----------------------------------------
 
-*`String.capitalize()`* returns the same string but with the first letter capitalized.
+`String.capitalize()` returns the same string but with the first letter capitalized.
 
 Usage:
 ```{javascript}
@@ -17,7 +18,9 @@ Usage:
 ```
 returns `"This is an apple."`.
 
-*`String.makeTitle(stopword)`* returns the same string but with the first letter of every word capitalized. If a nonempty Array `stopword` is passed, words in it are not capitalized. Dependency on `String.capitalize`.
+----------------------------------------
+
+`String.makeTitle(stopword)` returns the same string but with the first letter of every word capitalized. If a nonempty Array `stopword` is passed, words in it are not capitalized. Dependency on `String.capitalize`.
 
 Usage:
 ```{javascript}
