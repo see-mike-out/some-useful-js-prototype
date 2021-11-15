@@ -12,7 +12,7 @@ For **students** at any level, if you just copy or slightly modify (e.g., variab
 
 ## Array prototypes
 
-### `Array.arfFilter(comparer)` 
+### `Array.argFilter(comparer)` 
 returns the 'indices' of elements for which @comparer returns true. (@comparer: a comparison Function that takes each array element)
 
 Usage:
