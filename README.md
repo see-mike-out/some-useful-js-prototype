@@ -1,5 +1,15 @@
 # Some Useful Javascript Utility Prototype Functions that I Found Useful.
 
+## Copyright
+The codes in this repo can be used (copied, modified, and re-distributed) for any commercial and non-commercial purposes. 
+If you want to cite this, comment the below in your code:
+
+```
+- Author: Hyeok Kim (hyeok.me)
+- GitHub Repo: https://github.com/see-mike-out/some-useful-js-prototype
+```
+For **students** at any level, if you just copy or slightly modify (e.g., variable names) the below codes, it can still be a case of plagiarism according to your course's policy--always consult with your instructor.
+
 ## Array prototypes
 
 ### `Array.arfFilter(comparer)` 
