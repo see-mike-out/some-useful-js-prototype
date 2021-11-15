@@ -2,6 +2,7 @@
 // Author: Hyeok Kim (@see-mike-out @ Github)
 // http://hyeok.me
 // First commit: July 4, 2021
+// Last update: Nov 15, 2021
 
 Object.defineProperty(Array.prototype, "argFilter", {
   // @comparer:  a comparison Function that takes each array element
@@ -11,6 +12,36 @@ Object.defineProperty(Array.prototype, "argFilter", {
   enumerable: false,
   value: function (comparer) {
     return this.map((d, i) => (comparer(d) ? i : undefined)).filter((d) => d !== undefined);
+  }
+});
+
+Object.defineProperty(Array.prototype, "includesMultiple", {
+  // @array:  an array of elements to check the membership
+  // returns boolean
+  // usage 1: [1, 2, 3, 4].includesMultiple([1, 2])
+  // returns true
+  // usage 2: [1, 2, 3, 4].includesMultiple([1, 7])
+  // returns false
+  enumerable: false,
+  value: function (array) {
+    let self = this;
+    let diff = array.filter(d => !self.includes(d))
+    return diff.length == 0;
+  }
+});
+
+Object.defineProperty(Array.prototype, "addUnique", {
+  // @array: an array of elements to add
+  // returns elements of @array that are unique to the original array.
+  // does not change the original array
+  // usage: let a = [1, 2, 3, 4];
+  // a.addUnique([1, 2]); // [1, 2, 3, 4]
+  // a.addUnique([1, 5]); // [1, 2, 3, 4, 5]
+  // console.log(a) // [1, 2, 3, 4, 5]
+  enumerable: false,
+  value: function (array) {
+    this.push(...array);
+    return Array.from(new Set(this));
   }
 });
 
