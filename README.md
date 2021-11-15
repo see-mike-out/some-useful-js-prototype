@@ -11,6 +11,24 @@ Usage:
 ```
 returns `[1, 3]` (indices for 2 and 4, respectively).
 
+### `Array.includesMultiple(array)` 
+returns `true`/`false` if the orriginal array includes every element in @array.
+
+Usage:
+```{javascript}
+[1, 2, 3, 4].includesMultiple([1, 2]); // returns true;
+[1, 2, 3, 4].includesMultiple([1, 7]); // returns false;
+```
+
+### `Array.includesMultiple(array)` 
+returns an array of the unique elements of the union of the original array and @array.
+
+Usage:
+```{javascript}
+[1, 2, 3, 4].addUnique([1, 2]); // [1, 2, 3, 4]
+[1, 2, 3, 4].addUnique([1, 5]); // [1, 2, 3, 4, 5]
+```
+
 ## String prototypes
 
 ### `String.capitalize()`
