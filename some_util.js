@@ -2,7 +2,7 @@
 // Author: Hyeok Kim (@see-mike-out @ Github)
 // http://hyeok.me
 // First commit: July 4, 2021
-// Last update: Nov 15, 2021
+// Last update: Nov 17, 2021
 
 Object.defineProperty(Array.prototype, "argFilter", {
   // @comparer:  a comparison Function that takes each array element
@@ -45,6 +45,33 @@ Object.defineProperty(Array.prototype, "addUnique", {
   }
 });
 
+Object.defineProperty(Array.prototype, "sum", {
+  // returns the sum of elements
+  // [1, 2, 3, 4, 5].sum() // 15
+  enumerable: false,
+  value: function (array) {
+    return this.reduce((a, c) => a + c, 0);
+  }
+});
+
+Object.defineProperty(Array.prototype, "max", {
+  // returns the max of elements
+  // [1, 2, 3, 4, 5].max() // 5
+  enumerable: false,
+  value: function (array) {
+    return Math.max(...this);
+  }
+});
+
+Object.defineProperty(Array.prototype, "min", {
+  // returns the max of elements
+  // [1, 2, 3, 4, 5].min() // 1
+  enumerable: false,
+  value: function (array) {
+    return Math.min(...this);
+  }
+});
+
 Object.defineProperty(String.prototype, "capitalize", {
   // no argumemt
   // returns the same string but with the first letter capitalized
@@ -65,7 +92,7 @@ Object.defineProperty(String.prototype, "makeTitle", {
   // returns "This is an Apple."
   enumerable: false,
   value: function (stopword) {
-    if (this.length >= 1)  {
+    if (this.length >= 1) {
       if (stopword === undefined || stopword.constructor.name !== 'Array') stopword = [];
       return this.split(" ").map((word) => (stopword.includes(word) ? word : word.capitalize())).join(" ");
     } else return "";

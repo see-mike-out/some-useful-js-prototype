@@ -39,6 +39,16 @@ Usage:
 [1, 2, 3, 4].addUnique([1, 5]); // [1, 2, 3, 4, 5]
 ```
 
+## `Array.sum()` / `Array.max()` / `Array.min()`
+returns the sum/max/min of the array elements
+
+Usage:
+```javascript
+[1, 2, 3, 4, 5].sum() // 15
+[1, 2, 3, 4, 5].max() // 5
+[1, 2, 3, 4, 5].min() // 1
+```
+
 ## String prototypes
 
 ### `String.capitalize()`
