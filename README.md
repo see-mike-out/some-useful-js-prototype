@@ -10,6 +10,8 @@ If you want to cite this, comment the below in your code:
 ```
 For **students** at any level, if you just copy or slightly modify (e.g., variable names) the below codes, it can still be a case of plagiarism according to your course's policy--always consult with your instructor.
 
+When the below prototype functions have conflicts with other libraries, fix them by adding a prefix to the function names.
+
 ## Array prototypes
 
 ### `Array.argFilter(comparer)` 
@@ -39,7 +41,7 @@ Usage:
 [1, 2, 3, 4].addUnique([1, 5]); // [1, 2, 3, 4, 5]
 ```
 
-## `Array.sum()` / `Array.max()` / `Array.min()`
+### `Array.sum()` / `Array.max()` / `Array.min()`
 returns the sum/max/min of the array elements
 
 Usage:
