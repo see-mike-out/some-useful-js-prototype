@@ -15,7 +15,9 @@ When the below prototype functions have conflicts with other libraries, fix them
 ## Array prototypes
 
 ### `Array.argFilter(comparer)` 
-returns the 'indices' of elements for which @comparer returns true. (@comparer: a comparison Function that takes each array element)
+returns the 'indices' of elements for which `@comparer` returns true. 
+
+- `@comparer`: a comparison Function that takes each array element.
 
 Usage:
 ```javascript
@@ -24,7 +26,9 @@ Usage:
 returns `[1, 3]` (indices for 2 and 4, respectively).
 
 ### `Array.includesMultiple(array)` 
-returns `true`/`false` if the orriginal array includes every element in @array.
+returns `true`/`false` if the orriginal array includes every element in `@array`.
+
+- `@array`: an array of elements to check their membership in the original array.
 
 Usage:
 ```javascript
@@ -32,9 +36,11 @@ Usage:
 [1, 2, 3, 4].includesMultiple([1, 7]); // returns false;
 ```
 
-### `Array.includesMultiple(array)` 
-returns an array of the unique elements of the union of the original array and @array.
+### `Array.addUnique(array)` 
+returns an array of the unique elements of the union of the original array and `@array`.
 
+- `@array`: an array of elements to add only unique items to the original array.
+  
 Usage:
 ```javascript
 [1, 2, 3, 4].addUnique([1, 2]); // [1, 2, 3, 4]
@@ -51,6 +57,21 @@ Usage:
 [1, 2, 3, 4, 5].min() // 1
 ```
 
+### `Array.mean(ignoreNAN=false,strict=false)` / `Array.stdev(ignoreNAN=false,strict=false,sample=false)`
+returns the mean/stdev of the array elements.
+  
+- `@ignoreNAN` (optional; default: `false`): If set `true`, then it ignores `NAN`; if `false`, `NAN` is considered as `0`.
+- `@strict` (default: `false`): If set `true`, returns `null` when there is any `NAN`.
+- `@sample` (for `Array.stdev` only; default: `true`): If set `false`, calculates population standard deviation (i.e., the degree of freedom is the length of the array).
+
+When the length of the adjusted array (after `NAN` removed if `ignoreNAN` is `true`) is `0`, then it returns `null`.
+
+Usage:
+```javascript
+[1, 2, 3, 4, 5].mean() // 3
+[1, 2, 3, 4, 5].stdev() // 1.5811388300841898
+```
+
 ### `Array.argDiff()` / `Array.argAbsDiff()`
 returns the differences / absolute differences of consecutive elements.
 
@@ -62,6 +83,8 @@ Usage:
 
 ### `Array.zeros(n)`
 returns a length-`@n` array filled with zeros.
+
+- `@n` (`Number`): the number of zeros to have in the outcome array.
 
 Usage:
 ```javascript

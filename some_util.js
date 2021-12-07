@@ -49,7 +49,8 @@ Object.defineProperty(Array.prototype, "sum", {
   // returns the sum of elements
   // [1, 2, 3, 4, 5].sum() // 15
   enumerable: false,
-  value: function (array) {
+  value: function () {
+    if (this.length == 0) return 0;
     return this.reduce((a, c) => a + c, 0);
   }
 });
@@ -58,7 +59,7 @@ Object.defineProperty(Array.prototype, "max", {
   // returns the max of elements
   // [1, 2, 3, 4, 5].max() // 5
   enumerable: false,
-  value: function (array) {
+  value: function () {
     return Math.max(...this);
   }
 });
@@ -67,8 +68,50 @@ Object.defineProperty(Array.prototype, "min", {
   // returns the max of elements
   // [1, 2, 3, 4, 5].min() // 1
   enumerable: false,
-  value: function (array) {
+  value: function () {
     return Math.min(...this);
+  }
+});
+
+Object.defineProperty(Array.prototype, "mean", {
+  // returns the mean of elements
+  // [1, 2, 3, 4, 5].mean() // 3
+  // @ignoreNAN (optional; default: false): if set true, then it ignores NAN; if false, NAN considered as 0.
+  // @strict (default: false): if set true, returns null when there is any NAN.
+  // When the length of the adjusted array (NAN removed if ignoreNAN is true) is 0, then it returns null.
+  enumerable: false,
+  value: function (ignoreNAN=false, strict=false) {
+    if (this.length == 0) return null;
+    let b;
+    if (!ignoreNAN && strict && this.some(d => isNaN(d))) return null;
+    if (ignoreNAN) b = this.filter(d => !isNaN(d)).map(d => parseFloat(d));
+    else b = this.filter(d => d !== null && d !== undefined ? parseFloat(d) : 0);
+    if (b.length == 0) return null;
+    return b.reduce((a, c) => a + c, 0) / b.length;
+  }
+});
+
+Object.defineProperty(Array.prototype, "stdev", {
+  // returns the standard deviation of elements
+  // [1, 2, 3, 4, 5].stdev() // 3
+  // @ignoreNAN (optional; default: false): if set true, then it ignores NAN; if false, NAN considered as 0.
+  // @strict (default: false): if set true, returns null when there is any NAN.
+  // @sample (default: true): if set false, calculates population standard deviation (degree of freedom == the length of the array).
+  // When the length of the adjusted array (NAN removed if ignoreNAN is true) is 0, then it returns null.
+  enumerable: false,
+  value: function (ignoreNAN=false, strict=false, sample=true) {
+    if (this.length == 0) return null;
+    let b;
+    if (!ignoreNAN && strict && this.some(d => isNaN(d))) return null;
+    if (ignoreNAN) b = this.filter(d => !isNaN(d)).map(d => parseFloat(d));
+    else b = this.filter(d => d !== null && d !== undefined ? parseFloat(d) : 0);
+    if (b.length == 0) return null;
+    else if (b.length == 1 && sample) return null;
+    else if (b.length == 1 && !sample) return 0;
+    let m = b.reduce((a, c) => a + c, 0) / b.length;
+    if (m == null) return null;
+    let v = b.map(d => (d-m)**2).reduce((a, c) => a + c, 0) / (sample ? b.length - 1 : b.length);
+    return Math.sqrt(v);
   }
 });
 
@@ -77,7 +120,7 @@ Object.defineProperty(Array.prototype, "argDiff", {
   // [1, 2, 5, 3, 0].argDiff()
   // return [-1, -3, 2, 3]
   enumerable: false,
-  value: function (array) {
+  value: function () {
     return Array.zeros(this.length-1).map((d,i) => this[i] - this[i+1]);
   }
 });
@@ -87,7 +130,7 @@ Object.defineProperty(Array.prototype, "argAbsDiff", {
   // [1, 2, 5, 3, 0].argDiff()
   // return [1, 3, 2, 3]
   enumerable: false,
-  value: function (array) {
+  value: function () {
     return Array.zeros(this.length-1).map((d,i) => Math.abs(this[i] - this[i+1]));
   }
 });
