@@ -2,7 +2,7 @@
 // Author: Hyeok Kim (@see-mike-out @ Github)
 // http://hyeok.me
 // First commit: July 4, 2021
-// Last update: Nov 17, 2021
+// Last update: Dec 7, 2021
 
 Object.defineProperty(Array.prototype, "argFilter", {
   // @comparer:  a comparison Function that takes each array element
