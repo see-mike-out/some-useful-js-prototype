@@ -72,6 +72,34 @@ Object.defineProperty(Array.prototype, "min", {
   }
 });
 
+Object.defineProperty(Array.prototype, "argDiff", {
+  // returns the differences of consecutive elements
+  // [1, 2, 5, 3, 0].argDiff()
+  // return [-1, -3, 2, 3]
+  enumerable: false,
+  value: function (array) {
+    return Array.zeros(this.length-1).map((d,i) => this[i] - this[i+1]);
+  }
+});
+
+Object.defineProperty(Array.prototype, "argAbsDiff", {
+  // returns the absolute differences of consecutive elements
+  // [1, 2, 5, 3, 0].argDiff()
+  // return [1, 3, 2, 3]
+  enumerable: false,
+  value: function (array) {
+    return Array.zeros(this.length-1).map((d,i) => Math.abs(this[i] - this[i+1]));
+  }
+});
+
+Array.zeros = function(n) {
+  // returns a length-n array filled with zeros.
+  // Array.zeros(6) // [0, 0, 0, 0, 0, 0]
+  let a = [];
+  for(let i = 0; i < n; i++) a[i] = 0;  
+  return a;
+}
+
 Object.defineProperty(String.prototype, "capitalize", {
   // no argumemt
   // returns the same string but with the first letter capitalized
