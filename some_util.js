@@ -169,3 +169,12 @@ Object.defineProperty(String.prototype, "makeTitle", {
     } else return "";
   }
 });
+
+window.getType = function(d) {
+  // no dependency;
+  // given a variable @d, returns "undefined"; "null"; "NaN"; "String"; "Number"; "Object"; "Array"; "Function"
+	if (d === undefined) return "undefined";
+	else if (d === null) return "null";
+	else if (d.constructor.name === "Number" && isNaN(d)) return "NaN";
+	return d?.constructor.name;
+}

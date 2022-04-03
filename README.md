@@ -115,3 +115,20 @@ returns `"This is an Apple."`.
 "this is an apple.".makeTitle();
 ```
 returns `"This Is An Apple."`.
+
+## Window-level functions
+
+### `getType(d)`
+Given a variable `d`, returns either one of `"undefined"`, `"null"`, `"NaN"`, `"String`, `"Number"`, `"Object"`, `"Array"`, and `"Function"`.
+
+Usage:
+```javascript
+getType(undefined); // "undefined"
+getType(null); // "null"
+getType(34/"a"); // "NaN"
+getType("123"); // "String"
+getType(123); // "Number"
+getType({a: 3}); // "Object"
+getType([1,2,3]); // "Array"
+getType((a) => a+1); // "Function"
+```
