@@ -151,8 +151,10 @@ Object.defineProperty(Array.prototype, "joinWithAnd", {
   // ["apple", "grape"].joinWithAnd() // "apple and grape"
   // ["apple", "grape", "mango"].joinWithAnd() // "apple, grape, and mango"
   // ["apple", "grape", "mango"].joinWithAnd(true) // "apple, grape and mango"
+  // [[1,2,3]].joinWithAnd() // ""
   enumerable: false,
   value: function (isBritish) {
+    if (!this.every((d) => d.constructor.name === "String")) return "";
     if (this.length == 0) return "";
     if (this.length == 1) return this[0];
     if (this.length == 2) return this.join(" and ");
