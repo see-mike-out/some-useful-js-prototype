@@ -91,6 +91,20 @@ Usage:
 Array.zeros(6) // [0, 0, 0, 0, 0, 0]
 ```
 
+### `Array.joinWithAnd(isBritish)` 
+returns the string that joins the array elements by comma (,) with the last element joined with 'and'.
+
+- `@isBritish`: if `true`, then the last comma is not inserted.
+  
+Usage:
+```javascript
+[].joinWithAnd() // ""
+["apple"].joinWithAnd() // "apple"
+["apple", "grape"].joinWithAnd() // "apple and grape"
+["apple", "grape", "mango"].joinWithAnd() // "apple, grape, and mango"
+["apple", "grape", "mango"].joinWithAnd(true) // "apple, grape and mango"
+```
+
 ## String prototypes
 
 ### `String.capitalize()`

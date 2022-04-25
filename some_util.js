@@ -80,7 +80,7 @@ Object.defineProperty(Array.prototype, "mean", {
   // @strict (default: false): if set true, returns null when there is any NAN.
   // When the length of the adjusted array (NAN removed if ignoreNAN is true) is 0, then it returns null.
   enumerable: false,
-  value: function (ignoreNAN=false, strict=false) {
+  value: function (ignoreNAN = false, strict = false) {
     if (this.length == 0) return null;
     let b;
     if (!ignoreNAN && strict && this.some(d => isNaN(d))) return null;
@@ -99,7 +99,7 @@ Object.defineProperty(Array.prototype, "stdev", {
   // @sample (default: true): if set false, calculates population standard deviation (degree of freedom == the length of the array).
   // When the length of the adjusted array (NAN removed if ignoreNAN is true) is 0, then it returns null.
   enumerable: false,
-  value: function (ignoreNAN=false, strict=false, sample=true) {
+  value: function (ignoreNAN = false, strict = false, sample = true) {
     if (this.length == 0) return null;
     let b;
     if (!ignoreNAN && strict && this.some(d => isNaN(d))) return null;
@@ -110,7 +110,7 @@ Object.defineProperty(Array.prototype, "stdev", {
     else if (b.length == 1 && !sample) return 0;
     let m = b.reduce((a, c) => a + c, 0) / b.length;
     if (m == null) return null;
-    let v = b.map(d => (d-m)**2).reduce((a, c) => a + c, 0) / (sample ? b.length - 1 : b.length);
+    let v = b.map(d => (d - m) ** 2).reduce((a, c) => a + c, 0) / (sample ? b.length - 1 : b.length);
     return Math.sqrt(v);
   }
 });
@@ -121,7 +121,7 @@ Object.defineProperty(Array.prototype, "argDiff", {
   // return [-1, -3, 2, 3]
   enumerable: false,
   value: function () {
-    return Array.zeros(this.length-1).map((d,i) => this[i] - this[i+1]);
+    return Array.zeros(this.length - 1).map((d, i) => this[i] - this[i + 1]);
   }
 });
 
@@ -131,17 +131,36 @@ Object.defineProperty(Array.prototype, "argAbsDiff", {
   // return [1, 3, 2, 3]
   enumerable: false,
   value: function () {
-    return Array.zeros(this.length-1).map((d,i) => Math.abs(this[i] - this[i+1]));
+    return Array.zeros(this.length - 1).map((d, i) => Math.abs(this[i] - this[i + 1]));
   }
 });
 
-Array.zeros = function(n) {
+Array.zeros = function (n) {
   // returns a length-n array filled with zeros.
   // Array.zeros(6) // [0, 0, 0, 0, 0, 0]
   let a = [];
-  for(let i = 0; i < n; i++) a[i] = 0;  
+  for (let i = 0; i < n; i++) a[i] = 0;
   return a;
 }
+
+Object.defineProperty(Array.prototype, "joinWithAnd", {
+  // returns the string that joins the array elements by comma (,) with the last element joined with 'and'
+  // @isBritish (boolean): if `true`, then the last comma is not inserted.
+  // [].joinWithAnd() // ""
+  // ["apple"].joinWithAnd() // "apple"
+  // ["apple", "grape"].joinWithAnd() // "apple and grape"
+  // ["apple", "grape", "mango"].joinWithAnd() // "apple, grape, and mango"
+  // ["apple", "grape", "mango"].joinWithAnd(true) // "apple, grape and mango"
+  enumerable: false,
+  value: function (isBritish) {
+    if (this.length == 0) return "";
+    if (this.length == 1) return this[0];
+    if (this.length == 2) return this.join(" and ");
+    else {
+      return this.slice(0, this.length - 1).join(", ") + (!isBritish ? "," : "") + " and " + this[this.length - 1];
+    }
+  }
+});
 
 Object.defineProperty(String.prototype, "capitalize", {
   // no argumemt
@@ -170,11 +189,11 @@ Object.defineProperty(String.prototype, "makeTitle", {
   }
 });
 
-window.getType = function(d) {
+window.getType = function (d) {
   // no dependency;
   // given a variable @d, returns "undefined"; "null"; "NaN"; "String"; "Number"; "Object"; "Array"; "Function"
-	if (d === undefined) return "undefined";
-	else if (d === null) return "null";
-	else if (d.constructor.name === "Number" && isNaN(d)) return "NaN";
-	return d?.constructor.name;
+  if (d === undefined) return "undefined";
+  else if (d === null) return "null";
+  else if (d.constructor.name === "Number" && isNaN(d)) return "NaN";
+  return d?.constructor.name;
 }
