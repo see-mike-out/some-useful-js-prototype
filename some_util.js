@@ -2,7 +2,7 @@
 // Author: Hyeok Kim (@see-mike-out @ Github)
 // http://hyeok.me
 // First commit: July 4, 2021
-// Last update: Dec 7, 2021
+// Last update: May 23, 2022
 
 Object.defineProperty(Array.prototype, "argFilter", {
   // @comparer:  a comparison Function that takes each array element
@@ -198,4 +198,47 @@ window.getType = function (d) {
   else if (d === null) return "null";
   else if (d.constructor.name === "Number" && isNaN(d)) return "NaN";
   return d?.constructor.name;
+}
+
+Object.defineProperty(Object.prototype, "plant", {
+  // @obj: an object to plant into *this*
+  // no return value
+  // usage: { a: 3, b: { c: 3 } }.plant({ b: { d: 5 } })
+  // outcome: { a: 3, b: { c: 3, d: 5 } }
+  // to skip an array item, just empty it! (if undefined / null is given, then they are replaced)
+  // usage2: { a: 2, b: [ 1, 2, 3 ] }.plant({ b: [,8] })
+  // outcome2: { a: 2, b: [ 1, 8, 3 ] }
+  // usage3: { a: 2, b: [ 1, 2, 3 ] }.plant({ b: [undefined,8] })
+  // outcome3: { a: 2, b: [ undefined, 8, 3 ] }
+  enumerable: false,
+  value: function (obj) {
+    _plantObjectAB(this, obj);
+  }
+});
+
+window.plantObjectAB = _plantObjectAB;
+
+function _plantObjectAB(A, B) {
+  Object.keys(B).forEach((key) => {
+    if (A[key].constructor.name !== B[key].constructor.name) {
+      A[key] = JSON.parse(JSON.stringify(B[key]));
+    } else if (B[key].constructor.name === "Array") {
+      if (A[key] === undefined) A[key] = [];
+      B[key].forEach((b, i) => {
+        if (b === undefined || b === null || b) {
+          if (A[key][i].constructor.name === "Array" || A[key][i].constructor.name === "Object") {
+            A[key][i] = _plantObjectAB(A[key][i], b);
+          } else {
+            A[key][i] = b;
+          }
+        }
+      });
+    } else if (B[key].constructor.name === "Object") {
+      if (A[key] === undefined) A[key] = {};
+      A[key] = _plantObjectAB(A[key], B[key]);
+    } else {
+      A[key] = B[key];
+    }
+  })
+  return A;
 }

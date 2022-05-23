@@ -130,6 +130,50 @@ returns `"This is an Apple."`.
 ```
 returns `"This Is An Apple."`.
 
+
+## Object prototypes
+
+### `Object.plantObjectAB(obj)`
+Plant (replace/upsert specific values) `@obj` to `this`. 
+
+- `@obj`: an object to plant into `this`.
+- No return value (in-place modification).
+
+Usage:
+```javascript
+// object cascading
+let object1 = { a: 3, b: { c: 3 } };
+object1.plant({ b: { d: 5 } });
+consol.log(object1);
+// { a: 3, b: { c: 3, d: 5 } }
+
+// Array example
+let object2 = { a: 2, b: [ 1, 2, 3 ] };
+object2.plant({ b: [5, 8, 4] });
+consol.log(object2);
+// { a: 3, b: [5, 8, 4] }
+
+// Array example 2: to skip an item, set it empty!
+let object3 = { a: 2, b: [ 1, 2, 3 ] };
+object3.plant({ b: [ , 8] });
+consol.log(object3);
+// { a: 3, b: [1, 8, 3] }
+
+// undefined/null is also a value
+// Array example 3
+let object4 = { a: 2, b: [ 1, 2, 3 ] };
+object4.plant({ b: [undefined , 8] });
+consol.log(object4);
+// { a: 3, b: [undefined, 8, 3] }
+
+// for unmatched datatype ==> deecopy & replace
+// Example
+let object5 = { a: 2, b: { d: 5 } };
+object5.plant({ b: [1, 2, 3] });
+consol.log(object5);
+// { a: 3, b: [1, 2, 3] }
+```
+
 ## Window-level functions
 
 ### `getType(d)`
